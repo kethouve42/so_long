@@ -1,0 +1,94 @@
+/*int	main(int argc, char **argv)
+{
+	if (argc != 2)
+		return(write(1, "error\n", 6), 1);
+	int	fd;
+	fd = open(argv[1], O_RDONLY);
+	if (fd <= 0)
+		return(write(1, "error\n", 6), 1);
+	t_mlx_data *mlx;
+	mlx = malloc(sizeof(t_mlx_data));
+	mlx->player.player_x = 0;
+	mlx->player.player_y = 0;
+	mlx->map = NULL;
+	get_map(fd, mlx, argv);
+	if (verif_map(mlx) == 1)
+		return (free(mlx->map), write(1, "map error\n", 10), 1);
+	
+	if (!mlx->map)
+		return (1);
+	
+	// initialise la minilibx
+	mlx->mlx = mlx_init();
+	if (!mlx->mlx)
+		return(1);
+
+	//creer une fenetre au format: (variable initialisation mlx, largeur, hauteur, titre fenetre)
+	mlx->win_mlx = mlx_new_window(mlx->mlx, mlx->map_width * 32,  mlx->map_height * 32, "Hello world!");
+	if (!mlx->win_mlx)
+		return (free(mlx->mlx), 1);
+
+	// ... affiche la map dans une boucle infini
+	display_map(mlx);
+	
+	// Register key release hook enregistre les input de l'utilisateur
+	mlx_hook(mlx->win_mlx, KeyRelease, KeyReleaseMask, &on_keypress, &mlx);
+ 
+	//ecoute directement les key pressed
+	mlx_key_hook(mlx->win_mlx, &close_win, mlx);
+
+	// Register destroy hook enregistre la fermeture de la fenetre
+	mlx_hook(mlx->win_mlx, 17, 0L, &on_destroy, mlx);
+
+	//creer une boucle pour que la fentre reste ouverte et ecoute les mlx_hook(evenement)
+	mlx_loop(mlx->mlx);	
+	return (0);
+}
+*/
+
+int	main(int argc, char **argv)
+{
+	if (argc != 2)
+		return(write(1, "error\n", 6), 1);
+	int	fd;
+	fd = open(argv[1], O_RDONLY);
+	if (fd <= 0)
+		return(write(1, "error\n", 6), 1);
+	t_mlx_data *mlx;
+	mlx = malloc(sizeof(t_mlx_data));
+	mlx->player.player_x = 0;
+	mlx->player.player_y = 0;
+	mlx->map = NULL;
+	get_map(fd, mlx, argv);
+	if (verif_map(mlx) == 1)
+		return (free(mlx->map), write(1, "map error\n", 10), 1);
+	
+	if (!mlx->map)
+		return (1);
+	
+	// initialise la minilibx
+	mlx->mlx = mlx_init();
+	if (!mlx->mlx)
+		return(1);
+
+	//creer une fenetre au format: (variable initialisation mlx, largeur, hauteur, titre fenetre)
+	mlx->win_mlx = mlx_new_window(mlx->mlx, mlx->map_width * 32,  mlx->map_height * 32, "Hello world!");
+	if (!mlx->win_mlx)
+		return (free(mlx->mlx), 1);
+
+	// ... affiche la map dans une boucle infini
+	display_map(mlx);
+	
+	// Register key release hook enregistre les input de l'utilisateur
+	//mlx_hook(mlx->win_mlx, KeyRelease, KeyReleaseMask, &on_keypress, &mlx);
+ 
+	//ecoute directement les key pressed
+	mlx_key_hook(mlx->win_mlx, &close_win, mlx);
+
+	// Register destroy hook enregistre la fermeture de la fenetre
+	mlx_hook(mlx->win_mlx, 17, 0L, &on_destroy, mlx);
+
+	//creer une boucle pour que la fentre reste ouverte et ecoute les mlx_hook(evenement)
+	mlx_loop(mlx->mlx);	
+	return (0);
+}
